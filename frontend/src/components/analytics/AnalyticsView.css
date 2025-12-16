@@ -1,0 +1,154 @@
+.analytics-header {
+    padding-top: 24px;
+    margin-bottom: 24px;
+}
+
+.analytics-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.time-filter {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid #E5E5EA;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #8E8E93;
+}
+
+.filter-btn.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.analytics-section {
+    margin-bottom: 24px;
+}
+
+.section-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.stat-box {
+    background: #F8F9FD;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-primary);
+    display: block;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #8E8E93;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Heatmap Styles */
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background-color: #F0F1F6;
+}
+
+.heatmap-cell.level-1 {
+    background-color: #B3D1FF;
+}
+
+.heatmap-cell.level-2 {
+    background-color: #60AFFF;
+}
+
+.heatmap-cell.level-3 {
+    background-color: #0066FF;
+}
+
+.heatmap-cell.level-4 {
+    background-color: #00297A;
+}
+
+/* Chart Containers */
+.graph-container {
+    height: 200px;
+    width: 100%;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.bar-label {
+    width: 100px;
+    font-size: 13px;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bar-track {
+    flex: 1;
+    height: 8px;
+    background: #F0F1F6;
+    border-radius: 4px;
+    margin: 0 12px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 4px;
+}
+
+.bar-value {
+    font-size: 13px;
+    width: 30px;
+    text-align: right;
+    color: #8E8E93;
+}

@@ -24,7 +24,10 @@ const BottomNav = ({ onFabClick, activeTab, onTabChange }) => {
         </button>
       </div>
 
-      <button className="nav-item">
+      <button
+        className={`nav-item ${activeTab === 'analytics' ? 'active' : ''}`}
+        onClick={() => onTabChange && onTabChange('analytics')}
+      >
         <BarChart2 size={24} />
       </button>
       <button className="nav-item">

@@ -3,10 +3,18 @@ import Dashboard from './components/Dashboard';
 import BottomNav from './components/BottomNav';
 import MigraineLogWizard from './components/wizard/MigraineLogWizard';
 import CalendarView from './components/CalendarView';
+import AnalyticsView from './components/analytics/AnalyticsView.jsx';
+import Login from './components/Login';
+import { useAuth } from './context/AuthContext';
 
 function App() {
+  const { user } = useAuth();
   const [showWizard, setShowWizard] = useState(false);
-  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard' or 'calendar'
+  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard', 'calendar', 'analytics'
+
+  if (!user) {
+    return <Login />;
+  }
 
   return (
     <div className="container">
@@ -29,7 +37,9 @@ function App() {
       )}
 
       <main style={{ padding: '0 24px', paddingBottom: '100px' }}>
-        {currentView === 'dashboard' ? <Dashboard /> : <CalendarView />}
+        {currentView === 'dashboard' && <Dashboard />}
+        {currentView === 'calendar' && <CalendarView />}
+        {currentView === 'analytics' && <AnalyticsView />}
       </main>
 
       <BottomNav

@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Upload, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMigraineData } from '../context/MigraineContext'; // Integration
 import './CalendarView.css';
 
 const CalendarView = () => {
-    // State to store attacks: { '2025-12-09': 'Moderate' }
-    const [attacks, setAttacks] = useState({
-        '2025-12-09': 'Moderate',
-        '2026-01-05': 'Severe'
-    });
+    const { logs, addLog, deleteLogByDate } = useMigraineData();
 
-    // View State: Default to Dec 2025 based on your context
-    const [viewDate, setViewDate] = useState(new Date(2025, 11, 1)); // Month is 0-indexed (11 = Dec)
+    // View State
+    const [viewDate, setViewDate] = useState(new Date(2025, 11, 1)); // Default Dec 2025
     const [selectedDate, setSelectedDate] = useState(null);
+
+    // Derive attacks map from global logs
+    const attacks = useMemo(() => {
+        const map = {};
+        logs.forEach(log => {
+            const dateKey = log.startTime.split('T')[0]; // Extract YYYY-MM-DD
+            map[dateKey] = log.severity;
+        });
+        return map;
+    }, [logs]);
 
     const getDaysInMonth = (date) => {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
     };
 
     const getFirstDayOfMonth = (date) => {
-        // 0 = Sun, 1 = Mon ...
         return new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     };
 
@@ -26,7 +32,6 @@ const CalendarView = () => {
         setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + direction, 1));
     };
 
-    // Generate calendar grid data
     const daysInMonth = getDaysInMonth(viewDate);
     const startDayOffset = getFirstDayOfMonth(viewDate);
     const monthName = viewDate.toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -40,17 +45,26 @@ const CalendarView = () => {
     const setIntensity = (intensity) => {
         if (selectedDate) {
             if (intensity === null) {
-                const newAttacks = { ...attacks };
-                delete newAttacks[selectedDate];
-                setAttacks(newAttacks);
+                // Clear the log for this date
+                deleteLogByDate(selectedDate);
             } else {
-                setAttacks(prev => ({
-                    ...prev,
-                    [selectedDate]: intensity
-                }));
+                // Check if log exists to avoid duplicates or just overwrite?
+                // For simplicity, we delete existing for that day first to ensure clean state
+                deleteLogByDate(selectedDate);
+
+                // Create a simple log entry
+                const newLog = {
+                    startTime: `${selectedDate}T09:00`,
+                    endTime: `${selectedDate}T13:00`,
+                    durationValue: 4,
+                    severity: intensity,
+                    triggers: [],
+                    symptoms: []
+                };
+                addLog(newLog);
             }
-            setSelectedDate(null);
         }
+        setSelectedDate(null);
     };
 
     const getDayClass = (day) => {
@@ -67,7 +81,7 @@ const CalendarView = () => {
         return classes;
     };
 
-    // Count attacks for the CURRENTLY viewed month
+    // Count attacks for this month
     const attackCount = Object.keys(attacks).filter(k => k.startsWith(currentMonthKey)).length;
 
     return (
@@ -79,7 +93,7 @@ const CalendarView = () => {
                 </button>
             </div>
 
-            {/* Week Header (Standard) */}
+            {/* Week Header */}
             <div className="calendar-grid" style={{ marginBottom: '10px', rowGap: '0' }}>
                 {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
                     <div key={d} className="cal-day-label" style={{ fontWeight: '600', fontSize: '14px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{d}</div>
@@ -126,7 +140,13 @@ const CalendarView = () => {
                         <button className="option-btn mild" onClick={() => setIntensity('Mild')}>Mild</button>
                         <button className="option-btn moderate" onClick={() => setIntensity('Moderate')}>Moderate</button>
                         <button className="option-btn severe" onClick={() => setIntensity('Severe')}>Severe</button>
-                        <button className="option-btn" onClick={() => setIntensity(null)} style={{ marginTop: '12px', color: 'red' }}>Clear</button>
+
+                        {/* Clear Button - only show if there IS an attack currently */}
+                        {attacks[selectedDate] && (
+                            <button className="option-btn" onClick={() => setIntensity(null)} style={{ marginTop: '12px', color: '#FF3B30', border: '1px solid #FF3B30', background: '#fff' }}>Clear Date</button>
+                        )}
+
+                        <button className="option-btn" onClick={() => setSelectedDate(null)} style={{ marginTop: '12px', color: '#8E8E93', border: 'none', background: 'transparent' }}>Cancel</button>
                     </div>
                 </>
             )}

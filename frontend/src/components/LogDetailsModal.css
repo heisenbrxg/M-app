@@ -1,0 +1,159 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.log-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    max-height: 85vh;
+    border-radius: 20px;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.log-modal-header {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.log-modal-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1c1c1e;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8e8e93;
+    padding: 4px;
+}
+
+.log-summary-body {
+    padding: 24px;
+}
+
+.summary-section {
+    margin-bottom: 24px;
+}
+
+.summary-section.highlight {
+    background: #f2f8ff;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.summary-row:last-child {
+    margin-bottom: 0;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+.value.tag {
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: white;
+    font-size: 12px;
+}
+
+.value.tag.mild {
+    background: #60AFFF;
+}
+
+.value.tag.moderate {
+    background: #0066FF;
+}
+
+.value.tag.severe {
+    background: #00297A;
+}
+
+.summary-item {
+    margin-bottom: 16px;
+}
+
+.label-block {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8e8e93;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.text-block {
+    margin: 0;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+}
+
+.text-block.notes {
+    font-style: italic;
+    color: #555;
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

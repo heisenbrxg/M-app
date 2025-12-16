@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Plus, ChevronLeft, Check, Calendar, Clock } from 'lucide-react';
+import { useMigraineData } from '../../context/MigraineContext';
 import './MigraineLogWizard.css';
 
 const STEPS = [
@@ -63,6 +64,7 @@ const OPTIONS = {
 };
 
 const MigraineLogWizard = ({ onClose }) => {
+    const { addLog } = useMigraineData();
     const [currentStep, setCurrentStep] = useState(0);
     const [formData, setFormData] = useState(INITIAL_DATA);
     const [customModalOpen, setCustomModalOpen] = useState(false);
@@ -77,8 +79,7 @@ const MigraineLogWizard = ({ onClose }) => {
         if (currentStep < STEPS.length - 1) {
             setCurrentStep(curr => curr + 1);
         } else {
-            console.log("Log Saved:", JSON.stringify(formData, null, 2));
-            alert("Log Saved! (Check console for JSON)");
+            addLog(formData);
             onClose();
         }
     };
