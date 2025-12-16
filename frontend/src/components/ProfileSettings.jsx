@@ -50,7 +50,7 @@ const ProfileSettings = ({ onBack }) => {
                         <User size={40} color="white" />
                         <button className="edit-avatar-btn"><Camera size={14} /></button>
                     </div>
-                    <p className="email-label">{user?.email}</p>
+
                 </div>
 
                 {/* Form */}
@@ -65,26 +65,25 @@ const ProfileSettings = ({ onBack }) => {
                     />
                 </div>
 
-                <div className="form-row">
-                    <div className="form-group half">
-                        <label>Age</label>
-                        <input
-                            type="number"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleChange}
-                            placeholder="Age"
-                        />
-                    </div>
-                    <div className="form-group half">
-                        <label>Gender</label>
-                        <select name="gender" value={formData.gender} onChange={handleChange}>
-                            <option>Female</option>
-                            <option>Male</option>
-                            <option>Non-binary</option>
-                            <option>Prefer not to say</option>
-                        </select>
-                    </div>
+                <div className="form-group">
+                    <label>Age</label>
+                    <input
+                        type="number"
+                        name="age"
+                        value={formData.age}
+                        onChange={handleChange}
+                        placeholder="Age"
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>Gender</label>
+                    <select name="gender" value={formData.gender} onChange={handleChange}>
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Non-binary</option>
+                        <option>Prefer not to say</option>
+                    </select>
                 </div>
 
                 <div className="form-group">

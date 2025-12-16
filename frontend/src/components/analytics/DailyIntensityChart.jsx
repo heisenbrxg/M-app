@@ -60,9 +60,9 @@ const DailyIntensityChart = ({ logs = [] }) => {
                     setSelectedDate(d.toISOString().split('T')[0]);
                 }}><ChevronLeft size={20} color="#8E8E93" /></button>
 
-                <div className="date-input-wrapper" style={{ width: 'auto', padding: '8px 12px' }}>
-                    <Calendar size={16} className="input-icon" style={{ marginRight: 8 }} />
-                    <span style={{ fontSize: 14, fontWeight: 500 }}>{new Date(selectedDate).toLocaleDateString('default', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                <div style={{ width: 'auto', padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F8F9FD', borderRadius: '16px', border: '1px solid #E5E5EA' }}>
+                    <Calendar size={16} color="#8E8E93" style={{ marginRight: 8, minWidth: 16 }} />
+                    <span style={{ fontSize: 14, fontWeight: 500, color: '#1C1C1E' }}>{new Date(selectedDate).toLocaleDateString('default', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                 </div>
 
                 <button onClick={() => {
